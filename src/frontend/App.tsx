@@ -1,8 +1,10 @@
+import Header from "./Components/Header";
+
 function App() {
     return (
-        <>
-            <p className="">Hello</p>
-        </>
+        <div className="max-h-screen h-screen bg-red-600">
+            <Header />
+        </div>
     );
 }
 
