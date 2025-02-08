@@ -15,9 +15,9 @@ const Header = () => {
             <div className="w-[0.07rem] bg-gray-600 h-11"></div>
             <div className="px-6 flex flex-row justify-between w-full items-center">
                 <div>Document</div>
-                <div className="flex items-center">
-                    <button className=""></button>
-                    <button className="flex justify-center gap-2 items-center py-2 px-4 bg-BGButton hover:bg-BGButtonHover duration-150 transition-colors">
+                <div className="flex items-center gap-5">
+                    <button className=""><i className="fa-regular fa-trash-can text-gray-400 text-lg hover:text-[#E46643] duration-150 transition-colors"></i></button>
+                    <button className="flex justify-center gap-2 items-center py-2 px-4 bg-BGButton hover:bg-BGButtonHover duration-150 transition-colors rounded-md">
                         <img src={save} />
                         Save changes
                     </button>
