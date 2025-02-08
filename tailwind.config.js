@@ -6,6 +6,8 @@ module.exports = {
       backgroundColor: {
         'DMenuBG' : "#35393F",
         'DHeaderBG' : '#2B2D31',
+        'DContainerBG' : '#1D1F22',
+        'DBG' : '#151619',
         'BGButton' : "#E46643",
         'BGButtonHover' : '#F39765'
       },

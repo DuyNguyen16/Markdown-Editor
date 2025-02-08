@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import menu from "../assets/Group.png";
 import save from "../assets/save.png";
+import { MainContext } from "../mainContext/mainContext";
 
 const Header = () => {
+    const c = useContext(MainContext);
+
     return (
-        <div className="bg-DHeaderBG h-[4.5rem] flex items-center font-commissioner text-white">
-            <div className="h-full flex items-center bg-DMenuBG px-6 cursor-pointer">
+        <div className="bg-DHeaderBG h-[4.5rem] flex items-center text-white w-full">
+            <div className="h-full flex items-center bg-DMenuBG px-6 cursor-pointer" onClick={() => c?.setIsOpenMenu((prev) => !prev)}>
                 <img className="" src={menu} alt="Menu" />
             </div>
             <div className="px-6">
@@ -16,7 +20,9 @@ const Header = () => {
             <div className="px-6 flex flex-row justify-between w-full items-center">
                 <div>Document</div>
                 <div className="flex items-center gap-5">
-                    <button className=""><i className="fa-regular fa-trash-can text-gray-400 text-lg hover:text-[#E46643] duration-150 transition-colors"></i></button>
+                    <button className="">
+                        <i className="fa-regular fa-trash-can text-gray-400 text-lg hover:text-[#E46643] duration-150 transition-colors"></i>
+                    </button>
                     <button className="flex justify-center gap-2 items-center py-2 px-4 bg-BGButton hover:bg-BGButtonHover duration-150 transition-colors rounded-md">
                         <img src={save} />
                         Save changes
