@@ -16,7 +16,7 @@ function App() {
         <MainContext.Provider value={context}>
             <div className={`max-h-screen h-screen text-white font-commissioner flex w-full`}>
                 <SideBar />
-                <div className={`flex-1 transition-all duration-300 ${isOpenMenu ? "ml-[250px]" : "ml-0"}`}>
+                <div className={`flex-1 flex flex-col max-h-screen h-screen transition-all duration-300 ${isOpenMenu ? "ml-[250px]" : "ml-0"}`}>
                     <Header />
                     <HomePage />
                 </div>
