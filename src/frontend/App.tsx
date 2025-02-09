@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Header from "./Components/Header";
-import { MainContext, mainContextType } from "./mainContext/mainContext";
+import { MainContext, mainContextType } from "./mainContext/MainContext";
 import SideBar from "./Components/SideBar";
 import HomePage from "./HomePage";
 
@@ -14,15 +14,18 @@ function App() {
 
     return (
         <MainContext.Provider value={context}>
-            <div className={`max-h-screen h-screen text-white font-commissioner flex w-full`}>
+            <div className="h-screen max-h-screen overflow-hidden flex w-full text-white font-commissioner">
                 <SideBar />
-                <div className={`flex-1 flex flex-col max-h-screen h-screen transition-all duration-300 ${isOpenMenu ? "ml-[250px]" : "ml-0"}`}>
+                <div className={`flex-1 flex flex-col transition-all duration-300 ${isOpenMenu ? "ml-[250px]" : "ml-0"}`}>
                     <Header />
-                    <HomePage />
+                    <div className="flex-1 overflow-hidden">
+                        <HomePage />
+                    </div>
                 </div>
             </div>
         </MainContext.Provider>
     );
 }
+
 
 export default App;

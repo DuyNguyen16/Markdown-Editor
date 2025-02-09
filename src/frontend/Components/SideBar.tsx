@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MainContext } from "../mainContext/mainContext";
+import { MainContext } from "../mainContext/MainContext";
 
 const SideBar = () => {
     const c = useContext(MainContext);

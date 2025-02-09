@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import menu from "../assets/Group.png";
 import save from "../assets/save.png";
-import { MainContext } from "../mainContext/mainContext";
+import { MainContext } from "../mainContext/MainContext";
 
 const Header = () => {
     const c = useContext(MainContext);
