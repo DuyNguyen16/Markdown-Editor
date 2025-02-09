@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "./Components/Header";
 import { MainContext, mainContextType } from "./mainContext/MainContext";
 import SideBar from "./Components/SideBar";
-import HomePage from "./HomePage";
+import HomePage from "./pages/HomePage";
 
 function App() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);

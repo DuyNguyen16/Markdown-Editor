@@ -1,0 +1,48 @@
+h1 {
+    font-size: 32px;
+    font-weight: 700; /* Bold */
+    padding: 21px 0;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: 600; /* Semi-bold */
+}
+
+h3 {
+    font-size: 1.17em;
+    font-weight: 500; /* Medium */
+}
+
+h4 {
+    font-size: 1em;
+    font-weight: 400; /* Normal */
+}
+
+h5 {
+    font-size: 0.83em;
+    font-weight: 400; /* Normal */
+}
+
+h6 {
+    font-size: 0.67em;
+    font-weight: 400; /* Normal */
+}
+
+ol li {
+    list-style: decimal;
+    padding-left: 2px;
+    margin-left: 10px;
+}
+
+ol {
+    padding: 16px;
+    padding-left: 40px;
+}
+
+p {
+    color: #C1C4CB;
+    padding: 14px 0;
+    font-size: 14px;
+    letter-spacing: 0.3mm;
+}

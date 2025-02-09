@@ -24,38 +24,4 @@
     background: #555; /* Darker on hover */
 }
 
-h1 {
-    font-size: 2em; /* Ensure it's large enough */
-}
-
-h2 {
-    font-size: 1.5em;
-}
-
-h3 {
-    font-size: 1.17em;
-}
-
-h4 {
-    font-size: 1em;
-}
-
-h5 {
-    font-size: 0.83em;
-}
-
-h6 {
-    font-size: 0.67em;
-}
-
-ol li {
-    list-style: decimal;
-    padding-left: 2px; /* Add proper indentation */
-    margin-left: 10px; /* Add spacing */
-}
-
-ol {
-    padding-top: 1.8rem;
-    padding-left: 40px;
-}
 
