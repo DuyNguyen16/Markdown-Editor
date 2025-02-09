@@ -25,21 +25,21 @@ const HomePage = () => {
     }, [c?.currentDoc]);
 
     return (
-        <div className="flex flex-grow h-full overflow-hidden">
+        <div className="h-[calc(100vh-3.5rem)] flex flex-grow overflow-hidden">
             <PanelGroup direction={isMobile ? "vertical" : "horizontal"}>
                 {!c?.fullView && (
                     <Panel
-                        defaultSize={isMobile ? 100 : 50}
+                        defaultSize={isMobile ? 50 : 50} // Adjust default size
                         minSize={isMobile ? 100 : 30}
                     >
                         <div className="h-full flex flex-col">
                             <div className="flex flex-row bg-DContainerBG justify-between items-center px-5 py-2">
-                                <p className=" text-gray-400 tracking-[0.1rem] m-0 text-md ">
+                                <p className="text-gray-400 tracking-[0.1rem] m-0 text-md">
                                     MARKDOWN
                                 </p>
                             </div>
                             <textarea
-                                className="flex-1 bg-DBG border-none overflow-y-auto p-1 px-8 text-sm focus:outline-none text-colour-gray tracking-[1px]"
+                                className="flex-1 bg-DBG border-none overflow-y-auto p-1 px-4 text-sm focus:outline-none text-colour-gray tracking-[1px]"
                                 value={markdown}
                                 onChange={(e) => setMarkdown(e.target.value)}
                             ></textarea>
@@ -47,15 +47,15 @@ const HomePage = () => {
                     </Panel>
                 )}
                 {!c?.fullView && !isMobile && (
-                    <PanelResizeHandle className="w-[0.08rem] bg-gray-500" />
+                    <PanelResizeHandle className="w-[0.1rem] bg-gray-500" />
                 )}
                 <Panel
-                    defaultSize={isMobile ? 100 : 50}
+                    defaultSize={isMobile ? 50 : 50} // Adjust default size
                     minSize={isMobile ? 100 : 50}
                 >
                     <div className="h-full flex flex-col">
                         <div className="flex flex-row bg-DContainerBG justify-between items-center px-5 py-2">
-                            <p className=" text-gray-400 tracking-[0.1rem] m-0 text-md">
+                            <p className="text-gray-400 tracking-[0.1rem] m-0 text-md">
                                 PREVIEW
                             </p>
                             <i
@@ -68,7 +68,7 @@ const HomePage = () => {
                             ></i>
                         </div>
                         <div
-                            className="flex-1 bg-DBG overflow-y-auto p-1 px-8"
+                            className="flex-1 bg-DBG overflow-y-auto p-1 px-4" 
                             dangerouslySetInnerHTML={{
                                 __html: marked(markdown),
                             }}
