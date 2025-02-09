@@ -1,48 +1,95 @@
 h1 {
     font-size: 32px;
     font-weight: 700; /* Bold */
-    padding: 21px 0;
+    margin: 21px 0;
 }
 
 h2 {
-    font-size: 1.5em;
+    font-size: 28px;
     font-weight: 600; /* Semi-bold */
+    margin: 23px 0;
 }
 
 h3 {
-    font-size: 1.17em;
-    font-weight: 500; /* Medium */
+    font-size: 24px;
+    font-weight: 700; /* Bold */
+    margin: 24px 0;
 }
 
 h4 {
-    font-size: 1em;
-    font-weight: 400; /* Normal */
+    font-size: 20px;
+    font-weight: 700; /* Bold */
+    margin: 26px 0;
 }
 
 h5 {
-    font-size: 0.83em;
-    font-weight: 400; /* Normal */
+    font-size: 16px;
+    font-weight: 700; /* Normal */
+    margin: 26px 0;
 }
 
 h6 {
-    font-size: 0.67em;
-    font-weight: 400; /* Normal */
+    font-size: 14px;
+    font-weight: 700; /* Normal */
+    margin: 32px 0;
+    color: #E46643;
 }
 
 ol li {
     list-style: decimal;
     padding-left: 2px;
     margin-left: 10px;
+    color: #c1c4cb;
 }
 
 ol {
-    padding: 16px;
-    padding-left: 40px;
+    padding: 16px 0px;
+    padding: 0px 0px 0px 40px;
+}
+
+ul li {
+    list-style:initial;
+    padding-left: 2px;
+    margin-left: 10px;
+    color: #c1c4cb;
+}
+
+ul {
+    margin: 16px 0;
+    padding: 0px 0px 0px 40px;
 }
 
 p {
-    color: #C1C4CB;
-    padding: 14px 0;
+    color: #c1c4cb;
+    margin: 14px 0;
     font-size: 14px;
     letter-spacing: 0.3mm;
 }
+
+pre {
+    background-color: #2B2D31;
+    padding: 18px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 15px 0px;
+}
+
+code {
+    font-weight: 700;
+    color: white;
+}
+
+blockquote {
+    background-color: #2B2D31;
+    padding: 18px;
+    border-radius: 5px;
+    overflow-x: auto;
+    border-left: 4px solid #E46643; /* Width, style, and color */
+    margin: 15px 0px;
+}
+
+hr {
+    margin-top: 32px;
+    margin-bottom: 25px;
+}
+
