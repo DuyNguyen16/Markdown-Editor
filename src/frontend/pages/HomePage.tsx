@@ -63,7 +63,7 @@ const HomePage = () => {
                                     c?.fullView
                                         ? "fa-regular fa-eye-slash"
                                         : "fa-regular fa-eye"
-                                } cursor-pointer hover:text-myOrange duration-150 transition-colors`}
+                                } cursor-pointer hover:text-myOrange duration-150 transition-colors pr-2 md:pr-0`}
                                 onClick={() => c?.setFullView((prev) => !prev)}
                             ></i>
                         </div>
