@@ -34,3 +34,6 @@ This markdown editor allows for inline-code snippets, like this: \`<p>I'm inline
 </main>
 \`\`\`
 `;
+
+
+export const text2 = "# Untitled Document"

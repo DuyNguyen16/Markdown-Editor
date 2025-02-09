@@ -1,15 +1,24 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { marked } from "marked";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import "./markdown.css";
-import { text } from "./text.tsx";
+import { text, text2 } from "./text.tsx";
 import { MainContext } from "../mainContext/MainContext.tsx";
 
 const HomePage = () => {
     const c = useContext(MainContext);
-    const [markdown, setMarkdown] = useState(text);
+    const [markdown, setMarkdown] = useState(text); // Initialize markdown with text
+
+    useEffect(() => {
+        if (c?.currentDoc === 0) {
+            setMarkdown(text);  // Set markdown to text if currentDoc is 0
+        } else if (c?.currentDoc === 1) {
+            setMarkdown(text2); // Set markdown to text2 if currentDoc is 1
+        }
+    }, [c?.currentDoc]);
+    
     return (
-        <div className="flex flex-grow h-full overflow-hidden">
+        <div className="homepage flex flex-grow h-full overflow-hidden">
             <PanelGroup direction="horizontal">
                 {!c?.fullView && (
                     <Panel defaultSize={50} minSize={30}>
@@ -18,7 +27,7 @@ const HomePage = () => {
                                 MARKDOWN
                             </p>
                             <textarea
-                                className="flex-1 bg-DBG border-none overflow-y-auto p-2 px-4 text-sm focus:outline-none text-colour-gray tracking-[1px]"
+                                className="flex-1 bg-DBG border-none overflow-y-auto p-1 px-8 text-sm focus:outline-none text-colour-gray tracking-[1px]"
                                 value={markdown}
                                 onChange={(e) => setMarkdown(e.target.value)}
                             ></textarea>
@@ -38,7 +47,7 @@ const HomePage = () => {
                             ></i>
                         </div>
                         <div
-                            className="flex-1 bg-DBG overflow-y-auto p-1 px-4"
+                            className="flex-1 bg-DBG overflow-y-auto p-1 px-8"
                             dangerouslySetInnerHTML={{
                                 __html: marked(markdown),
                             }}

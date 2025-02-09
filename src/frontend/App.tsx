@@ -7,12 +7,16 @@ import HomePage from "./pages/HomePage";
 function App() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
     const [fullView, setFullView] = useState(false)
+    const [currentDoc, setCurrentDoc] = useState(0)
+
 
     const context: mainContextType = {
         isOpenMenu,
         setIsOpenMenu,
         fullView, 
-        setFullView
+        setFullView,
+        currentDoc, 
+        setCurrentDoc,
     };
 
     return (
