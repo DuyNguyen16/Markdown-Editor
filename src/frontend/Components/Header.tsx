@@ -15,7 +15,7 @@ const Header = () => {
     return (
         <div className="bg-DHeaderBG md:h-[4.5rem] flex items-center h-[3.5rem] text-white w-full">
             <button
-                className="h-full flex items-center bg-DMenuBG px-4 md:px-6 cursor-pointer"
+                className="h-full flex items-center bg-DMenuBG px-5 md:px-6 cursor-pointer"
                 onClick={() => c?.setIsOpenMenu((prev) => !prev)}
             >
                 <i className="md:text-2xl fa-solid fa-bars"></i>
