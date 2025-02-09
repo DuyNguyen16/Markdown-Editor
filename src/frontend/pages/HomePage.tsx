@@ -42,7 +42,7 @@ const HomePage = () => {
                                 className="flex-1 bg-DBG border-none overflow-y-auto p-1 px-4 text-sm focus:outline-none text-colour-gray tracking-[1px]"
                                 value={markdown}
                                 onChange={(e) => setMarkdown(e.target.value)}
-                                onFocus={(e) => e.target.blur()}
+                                
                             ></textarea>
                         </div>
                     </Panel>
