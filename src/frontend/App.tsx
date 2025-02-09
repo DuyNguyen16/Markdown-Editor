@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "./Components/Header";
 import { MainContext, mainContextType } from "./mainContext/MainContext";
 import SideBar from "./Components/SideBar";
-import HomePage from "./pages/HomePage";
+
 
 function App() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -24,9 +24,9 @@ function App() {
                 <SideBar />
                 <div className={`flex-1 flex flex-col transition-all duration-300 ${isOpenMenu ? "ml-[250px]" : "ml-0"}`}>
                     <Header />
-                    <div className="flex-1 overflow-hidden">
+                    {/* <div className="flex-1 overflow-hidden">
                         <HomePage />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </MainContext.Provider>
