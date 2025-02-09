@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "./Components/Header";
 import { MainContext, mainContextType } from "./mainContext/MainContext";
 import SideBar from "./Components/SideBar";
+import HomePage from "./pages/HomePage";
 
 
 function App() {
@@ -20,13 +21,13 @@ function App() {
 
     return (
         <MainContext.Provider value={context}>
-            <div className="h-screen max-h-screen overflow-hidden flex w-full text-white font-commissioner">
+            <div className="overflow-hidden flex w-full text-white font-commissioner">
                 <SideBar />
-                <div className={`flex-1 flex flex-col transition-all duration-300 ${isOpenMenu ? "ml-[250px]" : "ml-0"}`}>
+                <div className={`flex flex-col w-full transition-all duration-300 ${isOpenMenu ? "ml-[250px]" : "ml-0"}`}>
                     <Header />
-                    {/* <div className="flex-1 overflow-hidden">
+                    <div className="flex-1 overflow-hidden">
                         <HomePage />
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </MainContext.Provider>
