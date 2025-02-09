@@ -20,7 +20,7 @@ function App() {
 
     return (
         <MainContext.Provider value={context}>
-            <div className="h-screen max-h-screen md:overflow-hidden flex w-full text-white font-commissioner">
+            <div className="h-screen max-h-screen overflow-hidden flex w-full text-white font-commissioner">
                 <SideBar />
                 <div className={`flex-1 flex flex-col transition-all duration-300 ${isOpenMenu ? "ml-[250px]" : "ml-0"}`}>
                     <Header />
