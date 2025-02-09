@@ -16,7 +16,8 @@ module.exports = {
         robotoSlab: ['Roboto Slab', 'serif'],
       },
       textColor: {
-        'colour-gray' : '#c1c4cb'
+        'colour-gray' : '#c1c4cb',
+        'myOrange' : "#E46643",
       }
     },
   },
