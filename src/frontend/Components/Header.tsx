@@ -1,4 +1,6 @@
+
 import { useContext, useEffect, useState } from "react";
+import menu from "../assets/Group.png";
 import save from "../assets/save.png";
 import { MainContext } from "../mainContext/MainContext";
 
@@ -14,12 +16,12 @@ const Header = () => {
 
     return (
         <div className="bg-DHeaderBG md:h-[4.5rem] flex items-center h-[3.5rem] text-white w-full">
-            <button
-                className="h-full flex items-center bg-DMenuBG px-5 md:px-6 cursor-pointer"
+            <div
+                className="h-full flex items-center bg-DMenuBG px-4 md:px-6 cursor-pointer"
                 onClick={() => c?.setIsOpenMenu((prev) => !prev)}
             >
-                <i className="md:text-2xl fa-solid fa-bars"></i>
-            </button>
+                <img className="" src={menu} alt="Menu" />
+            </div>
             <div className="px-6 hidden md:block">
                 <p className="text-white font-bold tracking-[0.2rem]">
                     MARKDOWN
