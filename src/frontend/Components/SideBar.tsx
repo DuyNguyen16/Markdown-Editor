@@ -4,9 +4,13 @@ import { MainContext } from "../mainContext/MainContext";
 const SideBar = () => {
     const c = useContext(MainContext);
 
+    const handleClick = () => {
+        c?.setCurrentDoc(c?.currentDoc == 0 ? 1 : 0);
+        c?.setIsOpenMenu(false)
+    }
     return (
         <div
-            className={`bg-DContainerBG w-[250px] left-0 top-0 h-screen fixed transition-transform duration-300 ${
+            className={`bg-DContainerBG w-[250px] left-0 top-0 h-screen fixed z-10 transition-transform duration-300 ${
                 c?.isOpenMenu ? "translate-x-0" : "-translate-x-full"
             }`}
         >
@@ -27,7 +31,7 @@ const SideBar = () => {
                 <div className="pt-5 flex flex-col gap-1">
                     <div
                         className="flex flex-row items-center gap-5 cursor-pointer hover:bg-DHeaderBG px-2 py-1 duration-150 transition"
-                        onClick={() => c?.setCurrentDoc(0)}
+                        onClick={() => handleClick()}
                     >
                         <i className="fa-regular fa-file text-xl"></i>
                         <div>
@@ -39,9 +43,10 @@ const SideBar = () => {
                             </p>
                         </div>
                     </div>
+
                     <div
                         className="flex flex-row items-center gap-5 cursor-pointer hover:bg-DHeaderBG px-2 py-1 duration-150 transition"
-                        onClick={() => c?.setCurrentDoc(1)}
+                        onClick={() => handleClick()}
                     >
                         <i className="fa-regular fa-file text-xl"></i>
                         <div>

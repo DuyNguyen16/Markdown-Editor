@@ -20,7 +20,7 @@ const Header = () => {
                 {c?.isOpenMenu ? <i className="fa-solid fa-xmark md:text-2xl "></i> : <i className="fa-solid fa-bars md:text-2xl"></i>}
             </div>
             <div className="px-6 hidden md:block">
-                <p className="text-white font-bold tracking-[0.2rem]">
+                <p className="text-white font-bold tracking-[0.2rem] cursor-pointer">
                     MARKDOWN
                 </p>
             </div>

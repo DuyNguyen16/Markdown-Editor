@@ -21,7 +21,7 @@ function App() {
 
     return (
         <MainContext.Provider value={context}>
-            <div className="h-screen max-h-screen flex flex-col w-full text-white font-commissioner overflow-hidden">
+            <div className="bg-DBG h-screen max-h-screen flex flex-col w-full text-white font-commissioner overflow-hidden">
                 <SideBar />
                 <div
                     className={`w-full h-full transition-all duration-300 ${
