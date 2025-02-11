@@ -1,6 +1,4 @@
-
 import { useContext, useEffect, useState } from "react";
-import save from "../assets/save.png";
 import { MainContext } from "../mainContext/MainContext";
 
 const Header = () => {
@@ -14,12 +12,12 @@ const Header = () => {
     }, []);
 
     return (
-        <div className="bg-DHeaderBG md:h-[4.5rem] flex items-center h-[3.5rem] text-white w-full">
+        <div className="bg-DHeaderBG flex items-center h-[6%] text-white w-full">
             <div
-                className="h-full flex items-center bg-DMenuBG px-4 md:px-6 cursor-pointer"
+                className="flex items-center bg-DMenuBG h-full w-16 md:w-24 justify-center cursor-pointer"
                 onClick={() => c?.setIsOpenMenu((prev) => !prev)}
             >
-                <i className="fa-solid fa-bars md:text-2xl"></i>
+                {c?.isOpenMenu ? <i className="fa-solid fa-xmark md:text-2xl "></i> : <i className="fa-solid fa-bars md:text-2xl"></i>}
             </div>
             <div className="px-6 hidden md:block">
                 <p className="text-white font-bold tracking-[0.2rem]">
@@ -27,7 +25,7 @@ const Header = () => {
                 </p>
             </div>
             <div className="md:w-[0.07rem] bg-gray-600 h-11"></div>
-            <div className="px-6 flex flex-row justify-between w-full items-center">
+            <div className="px-3 md:px-6 flex flex-row justify-between w-full items-center">
                 <div className="flex flex-row items-center gap-5 cursor-pointer">
                     <i className="fa-regular fa-file text-xl"></i>
                     <div>
@@ -42,7 +40,7 @@ const Header = () => {
                         <i className="fa-regular fa-trash-can text-gray-400 text-lg hover:text-[#E46643] duration-150 transition-colors"></i>
                     </button>
                     <button className="flex justify-center gap-2 items-center py-3 px-3 md:py-2 md:px-4 bg-BGButton hover:bg-BGButtonHover duration-150 transition-colors rounded-md">
-                        <img src={save} />
+                        <i className="fa-regular fa-floppy-disk"></i>
                         {!isMobile && "Save changes"}
                     </button>
                 </div>
