@@ -14,7 +14,7 @@ const Header = () => {
     return (
         <div className="bg-DHeaderBG flex items-center h-[6%] text-white w-full">
             <div
-                className="flex items-center bg-DMenuBG h-full w-16 md:w-24 justify-center cursor-pointer"
+                className="flex items-center bg-DMenuBG h-full w-16 md:w-20 justify-center cursor-pointer"
                 onClick={() => c?.setIsOpenMenu((prev) => !prev)}
             >
                 {c?.isOpenMenu ? <i className="fa-solid fa-xmark md:text-2xl "></i> : <i className="fa-solid fa-bars md:text-2xl"></i>}

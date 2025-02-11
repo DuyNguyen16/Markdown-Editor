@@ -4,6 +4,12 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&display=swap");
 
+html, body {
+    overflow: hidden;
+    touch-action: none; /* Prevents user interaction scrolling */
+    overscroll-behavior: contain; /* Prevents bouncing effect */
+  }
+  
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
