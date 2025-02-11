@@ -1,6 +1,5 @@
 
 import { useContext, useEffect, useState } from "react";
-import menu from "../assets/Group.png";
 import save from "../assets/save.png";
 import { MainContext } from "../mainContext/MainContext";
 
@@ -20,7 +19,7 @@ const Header = () => {
                 className="h-full flex items-center bg-DMenuBG px-4 md:px-6 cursor-pointer"
                 onClick={() => c?.setIsOpenMenu((prev) => !prev)}
             >
-                <img className="" src={menu} alt="Menu" />
+                <i className="fa-solid fa-bars md:text-2xl"></i>
             </div>
             <div className="px-6 hidden md:block">
                 <p className="text-white font-bold tracking-[0.2rem]">
