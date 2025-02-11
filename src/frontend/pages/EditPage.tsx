@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { text, text2 } from "./text";
 import { MainContext } from "../mainContext/MainContext";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
