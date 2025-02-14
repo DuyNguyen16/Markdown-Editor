@@ -64,7 +64,7 @@ const EditPage = () => {
                             <p>MARKDOWN</p>
                         </div>
                         <textarea
-                            className="w-full flex-1 bg-DBG border-none p-3 px-8 text-sm focus:outline-none text-colour-gray tracking-[1px]"
+                            className="w-full flex-1 bg-DBG border-none p-3 px-8 text-[16px] focus:outline-none text-colour-gray tracking-[1px]"
                             value={markdown}
                             onChange={handleMarkdownChange}
                         ></textarea>
