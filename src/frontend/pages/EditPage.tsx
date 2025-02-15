@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState, useRef } from "react";
 import { text, text2 } from "./text";
 import { MainContext } from "../mainContext/MainContext";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { marked } from "marked";
 import "./markdown.css";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../backend/firebase";
 
 const EditPage = () => {
     const c = useContext(MainContext);
-    const [markdown, setMarkdown] = useState(text);
+    const [markdown, setMarkdown] = useState("");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const previewRef = useRef<HTMLDivElement | null>(null);
 
@@ -15,6 +18,29 @@ const EditPage = () => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const [data, setData] = useState<any[]>([]);
+
+    const getData = async () => {
+        try {
+            const querySnapshot = await getDocs(collection(db, "documents"));
+            const docsArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+            setData(docsArray); // Store array of documents
+            console.log(docsArray[0].text);
+        } catch (e) {
+            console.error("Error fetching documents:", e);
+        }
+    };
+    
+
+    useEffect(() => {
+        const get = async () => {
+            await getData();
+        };
+
+        get();
     }, []);
 
     useEffect(() => {

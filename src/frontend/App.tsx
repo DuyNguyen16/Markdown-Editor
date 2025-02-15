@@ -1,21 +1,24 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import Header from "./Components/Header";
 import { MainContext, mainContextType } from "./mainContext/MainContext";
 import SideBar from "./Components/SideBar";
 import EditPage from "./pages/EditPage";
+import { db } from "../backend/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 function App() {
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-    const [fullView, setFullView] = useState(false)
-    const [currentDoc, setCurrentDoc] = useState(0)
+    const [fullView, setFullView] = useState(false);
+    const [currentDoc, setCurrentDoc] = useState(0);
 
 
     const context: mainContextType = {
         isOpenMenu,
         setIsOpenMenu,
-        fullView, 
+        fullView,
         setFullView,
-        currentDoc, 
+        currentDoc,
         setCurrentDoc,
     };
 
@@ -34,7 +37,6 @@ function App() {
             </div>
         </MainContext.Provider>
     );
-};    
-
+}
 
 export default App;
