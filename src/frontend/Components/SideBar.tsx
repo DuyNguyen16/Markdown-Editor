@@ -1,13 +1,20 @@
 import { useContext } from "react";
 import { MainContext } from "../mainContext/MainContext";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
     const c = useContext(MainContext);
+    const documents = c?.data;
+    const navigate = useNavigate()
 
-    const handleClick = () => {
-        c?.setCurrentDoc(c?.currentDoc == 0 ? 1 : 0);
-        c?.setIsOpenMenu(false)
-    }
+    const handleClick = (index : number) => {
+        if (documents) {
+        const myId = documents[index].id
+        navigate(`/${myId}`)
+        c?.setIsOpenMenu(false);
+        }
+    };
+
     return (
         <div
             className={`bg-DContainerBG w-[250px] left-0 top-0 h-screen fixed z-10 transition-transform duration-300 ${
@@ -29,35 +36,25 @@ const SideBar = () => {
                     </button>
                 </div>
                 <div className="pt-5 flex flex-col gap-1">
-                    <div
-                        className="flex flex-row items-center gap-5 cursor-pointer hover:bg-DHeaderBG px-2 py-1 duration-150 transition"
-                        onClick={() => handleClick()}
-                    >
-                        <i className="fa-regular fa-file text-xl"></i>
-                        <div>
-                            <p className="m-0 text-gray-500 text-xs">
-                                04 January 2025
-                            </p>
-                            <p className="m-0 text-white  duration-150 transition-colors">
-                                Example.md
-                            </p>
+                    {documents?.map((doc, index) => (
+                        <div
+                            key={index}
+                            className="flex flex-row items-center gap-5 cursor-pointer hover:bg-DHeaderBG px-2 py-1 duration-150 transition"
+                            onClick={() => handleClick(index)} // Pass the index to handleClick
+                        >
+                            <i className="fa-regular fa-file text-xl"></i>
+                            <div>
+                                <p className="m-0 text-gray-500 text-xs">
+                                    {/* Assuming 'date' is a property in your document */}
+                                    {doc?.date || "No date available"}
+                                </p>
+                                <p className="m-0 text-white duration-150 transition-colors">
+                                    {/* Assuming 'title' is a property in your document */}
+                                    {doc?.title || "Untitled.md"}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div
-                        className="flex flex-row items-center gap-5 cursor-pointer hover:bg-DHeaderBG px-2 py-1 duration-150 transition"
-                        onClick={() => handleClick()}
-                    >
-                        <i className="fa-regular fa-file text-xl"></i>
-                        <div>
-                            <p className="m-0 text-gray-500 text-xs">
-                                04 January 2025
-                            </p>
-                            <p className="m-0 text-white duration-150 transition-colors">
-                                Untitled.md
-                            </p>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>

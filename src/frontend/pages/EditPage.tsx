@@ -1,18 +1,41 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState, useRef } from "react";
-import { text, text2 } from "./text";
 import { MainContext } from "../mainContext/MainContext";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { marked } from "marked";
 import "./markdown.css";
-import { collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../backend/firebase";
+import { useParams } from "react-router-dom";
 
 const EditPage = () => {
     const c = useContext(MainContext);
+    const { id } = useParams();
     const [markdown, setMarkdown] = useState("");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const previewRef = useRef<HTMLDivElement | null>(null);
+
+    // Fetch document by ID on mount or when `id` changes
+    useEffect(() => {
+        if (id) {
+            const fetchDocument = async () => {
+                try {
+                    const docRef = doc(db, "documents", id);
+                    const docSnap = await getDoc(docRef);
+
+                    if (docSnap.exists()) {
+                        const fetchedData = docSnap.data();
+                        setMarkdown(fetchedData.text || "");
+                    } else {
+                        console.log("No such document!");
+                    }
+                } catch (e) {
+                    console.error("Error getting document: ", e);
+                }
+            };
+
+            fetchDocument();
+        }
+    }, [id]);
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -20,40 +43,7 @@ const EditPage = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const [data, setData] = useState<any[]>([]);
-
-    const getData = async () => {
-        try {
-            const querySnapshot = await getDocs(collection(db, "documents"));
-            const docsArray = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    
-            setData(docsArray); // Store array of documents
-            console.log(docsArray[0].text);
-        } catch (e) {
-            console.error("Error fetching documents:", e);
-        }
-    };
-    
-
-    useEffect(() => {
-        const get = async () => {
-            await getData();
-        };
-
-        get();
-    }, []);
-
-    useEffect(() => {
-        if (c?.currentDoc === 0) {
-            setMarkdown(text);
-        } else if (c?.currentDoc === 1) {
-            setMarkdown(text2);
-        }
-    }, [c?.currentDoc]);
-
-    const handleMarkdownChange = (
-        e: React.ChangeEvent<HTMLTextAreaElement>
-    ) => {
+    const handleMarkdownChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newMarkdown = e.target.value;
         setMarkdown(newMarkdown);
 
@@ -61,9 +51,7 @@ const EditPage = () => {
         if (previewRef.current) {
             const textarea = e.target;
             const cursorPosition = textarea.selectionStart;
-            const lineHeight = parseInt(
-                window.getComputedStyle(textarea).lineHeight
-            );
+            const lineHeight = parseInt(window.getComputedStyle(textarea).lineHeight);
             const scrollTop = cursorPosition * lineHeight;
 
             previewRef.current.scrollTo({
@@ -73,19 +61,26 @@ const EditPage = () => {
         }
     };
 
+    // Save function that adds markdown content to Firestore
+    // const handleSave = async () => {
+    //     try {
+    //         // Saving the current markdown content to Firestore
+    //         await addDoc(collection(db, "documents"), {
+    //             text: markdown,
+    //             timestamp: new Date(),
+    //         });
+    //         console.log("Document successfully saved!");
+    //     } catch (e) {
+    //         console.error("Error adding document: ", e);
+    //     }
+    // };
+
     return (
-        <div className="flex flex-col h-[94%] overflow-hidden flex-grow ">
-            <PanelGroup
-                direction={isMobile ? "vertical" : "horizontal"}
-                className="flex-1"
-            >
+        <div className="flex flex-col h-[94%] overflow-hidden flex-grow">
+            <PanelGroup direction={isMobile ? "vertical" : "horizontal"} className="flex-1">
                 {/* Markdown Editor */}
                 {!c?.fullView && (
-                    <Panel
-                        defaultSize={50}
-                        minSize={30}
-                        className="flex flex-col"
-                    >
+                    <Panel defaultSize={50} minSize={30} className="flex flex-col">
                         <div className="flex items-center px-5 h-[40px] text-gray-400 tracking-[0.1rem] bg-DContainerBG">
                             <p>MARKDOWN</p>
                         </div>
@@ -94,15 +89,24 @@ const EditPage = () => {
                             value={markdown}
                             onChange={handleMarkdownChange}
                         ></textarea>
+                        {/* Save Button */}
+                        {/* <button
+                            className="mt-3 bg-blue-500 text-white py-2 px-4 rounded"
+                            onClick={handleSave}
+                        >
+                            Save to Database
+                        </button> */}
                     </Panel>
                 )}
-                {!c?.fullView && (
-                    <div>
-                        <PanelResizeHandle className="z-0 w-8 md:w-10 -translate-y-8 md:translate-y-0 fixed h-8 md:h-10 bg-DMenuBG md:-translate-x-10 justify-center items-center flex"><i className={`${isMobile ? "fa-solid fa-arrows-up-down" : "fa-solid fa-arrows-left-right"}`}></i></PanelResizeHandle>
-                        
-                        
-                    </div>
-                )}
+                <PanelResizeHandle className="z-0 w-8 md:w-10 -translate-y-8 md:translate-y-0 fixed h-8 md:h-10 bg-DMenuBG md:-translate-x-10 justify-center items-center flex">
+                    <i
+                        className={`${
+                            isMobile
+                                ? "fa-solid fa-arrows-up-down"
+                                : "fa-solid fa-arrows-left-right"
+                        }`}
+                    ></i>
+                </PanelResizeHandle>
                 {/* Preview */}
                 <Panel defaultSize={50} minSize={50} className="flex flex-col">
                     <div className="flex justify-between items-center px-5 h-[40px] text-gray-400 tracking-[0.1rem] bg-DContainerBG">

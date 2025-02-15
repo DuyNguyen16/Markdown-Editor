@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { MainContext } from "../mainContext/MainContext";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     const c = useContext(MainContext);
@@ -20,9 +21,9 @@ const Header = () => {
                 {c?.isOpenMenu ? <i className="fa-solid fa-xmark md:text-2xl "></i> : <i className="fa-solid fa-bars md:text-2xl"></i>}
             </div>
             <div className="px-6 hidden md:block">
-                <p className="text-white font-bold tracking-[0.2rem] cursor-pointer">
+                <Link className="text-white font-bold tracking-[0.2rem] cursor-pointer" to={"/"}>
                     MARKDOWN
-                </p>
+                </Link>
             </div>
             <div className="md:w-[0.07rem] bg-gray-600 h-11"></div>
             <div className="px-3 md:px-6 flex flex-row justify-between w-full items-center">
