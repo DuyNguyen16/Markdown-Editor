@@ -46,7 +46,7 @@ const SideBar = () => {
                             <div>
                                 <p className="m-0 text-gray-500 text-xs">
                                     {/* Assuming 'date' is a property in your document */}
-                                    {"No date available"}
+                                    {doc?.date.toDate().toLocaleDateString() || "No date available"}
                                 </p>
                                 <p className="m-0 text-white duration-150 transition-colors">
                                     {/* Assuming 'title' is a property in your document */}

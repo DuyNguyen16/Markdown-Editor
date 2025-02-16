@@ -11,6 +11,11 @@ const Header = () => {
     const [docName, setDocName] = useState("Untitled Document");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const [originalMarkdown, setOriginalMarkdown] = useState<string | null>(null);
+    const [ rename, isRename ] = useState(false)
+
+    const handleRename = () => {
+
+    }
 
     // Fetch document name & content when opening an existing document
     useEffect(() => {
