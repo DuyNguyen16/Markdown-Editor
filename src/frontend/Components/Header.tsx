@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { MainContext } from "../mainContext/MainContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { doc, getDoc, setDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, deleteDoc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../backend/firebase";
 
 const Header = () => {
@@ -49,13 +49,25 @@ const Header = () => {
             toast.error("Document name cannot be empty!");
             return;
         }
-
+    
         if (newName === docName) {
             setIsRename(false);
             return;
         }
-
+    
         try {
+            // Check if a document with the same name already exists
+            const documentsRef = collection(db, "documents");
+            const snapshot = await getDocs(documentsRef);
+            const existingTitles = snapshot.docs.map((doc) => doc.data().title);
+    
+            if (existingTitles.includes(newName)) {
+                setNewName(docName)
+                toast.error("A document with this name already exists!");
+                return;
+            }
+    
+            // Update the document name
             await updateDoc(doc(db, "documents", id!), { title: newName });
             setDocName(newName);
             toast.success("Document renamed successfully!");
@@ -66,6 +78,7 @@ const Header = () => {
             setIsRename(false);
         }
     };
+    
 
     const handleSave = async () => {
         if (!c?.markdown.trim()) {
@@ -143,8 +156,10 @@ const Header = () => {
                     <div className="flex flex-row items-center cursor-pointer">
                         <i className="fa-regular fa-file text-xl pr-4"></i>
                         <div>
-                            <p className="m-0 text-gray-500 dark:text-gray-500 text-xs">{date}</p>
-                            {isRename ? (
+                            <p className="m-0 text-gray-500 dark:text-gray-500 text-xs">
+                                {date}
+                            </p>
+                            {isRename && docName != "Sample Document" ? (
                                 <input
                                     type="text"
                                     value={newName}
@@ -164,23 +179,30 @@ const Header = () => {
                                 </div>
                             )}
                         </div>
-                        {isRename ? <i className="fa-solid fa-xmark md:text-2xl pl-2 text-red-500"></i> :<i
-                            className="fa-solid fa-pen text-white cursor-pointer pl-2 hover:text-[#E46643] duration-150 transition"
-                            onClick={() => setIsRename(true)}
-                        />}
+                        {docName !== "Sample Document" &&
+                            (isRename ? (
+                                <i className="fa-solid fa-xmark md:text-2xl pl-2 text-red-500"></i>
+                            ) : (
+                                <i
+                                    className="fa-solid fa-pen text-white cursor-pointer pl-2 hover:text-[#E46643] duration-150 transition"
+                                    onClick={() => setIsRename(true)}
+                                />
+                            ))}
                     </div>
-                    <div className="flex items-center gap-5">
-                        <button onClick={() => setShowDeletePopup(true)}>
-                            <i className="fa-regular fa-trash-can text-gray-400 text-lg hover:text-[#E46643] duration-150 transition-colors"></i>
-                        </button>
-                        <button
-                            onClick={handleSave}
-                            className="flex justify-center gap-2 items-center py-3 px-3 md:py-2 md:px-4 bg-BGButton hover:bg-BGButtonHover duration-150 transition-colors rounded-md"
-                        >
-                            <i className="fa-regular fa-floppy-disk"></i>
-                            {!isMobile && "Save changes"}
-                        </button>
-                    </div>
+                    {docName !== "Sample Document" && (
+                        <div className="flex items-center gap-5">
+                            <button onClick={() => setShowDeletePopup(true)}>
+                                <i className="fa-regular fa-trash-can text-gray-400 text-lg hover:text-[#E46643] duration-150 transition-colors"></i>
+                            </button>
+                            <button
+                                onClick={handleSave}
+                                className="flex justify-center gap-2 items-center py-3 px-3 md:py-2 md:px-4 bg-BGButton hover:bg-BGButtonHover duration-150 transition-colors rounded-md"
+                            >
+                                <i className="fa-regular fa-floppy-disk"></i>
+                                {!isMobile && "Save changes"}
+                            </button>
+                        </div>
+                    )}
                 </div>
             ) : (
                 <div className="px-3 md:px-6 flex flex-row justify-between w-full items-center">

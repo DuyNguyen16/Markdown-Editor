@@ -48,7 +48,7 @@ function App() {
     return (
         <MainContext.Provider value={context}>
             <BrowserRouter>
-                <ToastContainer className="mt-3 md:mt-14" position="top-right" autoClose={3000} />
+                <ToastContainer className="mt-14" position="top-right" autoClose={3000} />
                 <div className="dark:bg-DBG h-screen max-h-screen flex flex-col w-full text-white font-commissioner overflow-hidden">
                     <SideBar />
                     <div

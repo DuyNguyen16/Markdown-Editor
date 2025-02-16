@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../backend/firebase";
 import { useContext } from "react";
 import { MainContext } from "../mainContext/MainContext";
+import { toast } from "react-toastify";
 
 const Home = () => {
     const c = useContext(MainContext)
@@ -12,6 +13,20 @@ const Home = () => {
 
     const createNewDoc = async () => {
         try {
+            const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
+            const writesRef = doc(db, "writes", today);
+            const writesSnap = await getDoc(writesRef);
+
+            const writeCount = writesSnap.exists()
+                ? writesSnap.data().writeCount
+                : 0;
+
+            // Restrict to 10 writes per day
+            if (writeCount >= 6) {
+                toast.error("You have reached the daily limit of 6 new documents.");
+                return;
+            }
+
             const documentsRef = collection(db, "documents");
 
             // Fetch all documents to check for existing "Untitled Document" entries
@@ -37,13 +52,21 @@ const Home = () => {
                 date: new Date(),
             });
 
+            // Update or create the daily write count
+            if (writesSnap.exists()) {
+                await updateDoc(writesRef, { writeCount: writeCount + 1 });
+            } else {
+                await setDoc(writesRef, { writeCount: 1 });
+            }
+
             // Navigate to the newly created document
             navigate(`/document/${newDocRef.id}`);
-            c?.setIsOpenMenu(false)
+            c?.setIsOpenMenu(false);
         } catch (error) {
             console.error("Error creating new document:", error);
         }
     };
+    
     return (
         <>
             <Header />

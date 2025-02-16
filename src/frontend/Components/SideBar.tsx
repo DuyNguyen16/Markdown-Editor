@@ -1,25 +1,37 @@
 import { useContext } from "react";
 import { MainContext } from "../mainContext/MainContext";
 import { useNavigate } from "react-router-dom";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../backend/firebase";
 import ChangeThemeButton from "./Theme/ChangeThemeButton";
+import { toast } from "react-toastify";
 
 const SideBar = () => {
     const c = useContext(MainContext);
     const documents = c?.data;
     const navigate = useNavigate();
 
-    const handleClick = (index: number) => {
-        if (documents) {
-            const myId = documents[index].id;
-            navigate(`/document/${myId}`);
-            c?.setIsOpenMenu(false);
-        }
+    const handleClick = (documentId: string) => {
+        navigate(`/document/${documentId}`);
+        c?.setIsOpenMenu(false);
     };
 
     const createNewDoc = async () => {
         try {
+            const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
+            const writesRef = doc(db, "writes", today);
+            const writesSnap = await getDoc(writesRef);
+
+            const writeCount = writesSnap.exists()
+                ? writesSnap.data().writeCount
+                : 0;
+
+            // Restrict to 6 writes per day
+            if (writeCount >= 6) {
+                toast.error("You have reached the daily limit of 6 new documents.");
+                return;
+            }
+
             const documentsRef = collection(db, "documents");
 
             // Fetch all documents to check for existing "Untitled Document" entries
@@ -45,9 +57,16 @@ const SideBar = () => {
                 date: new Date(),
             });
 
+            // Update or create the daily write count
+            if (writesSnap.exists()) {
+                await updateDoc(writesRef, { writeCount: writeCount + 1 });
+            } else {
+                await setDoc(writesRef, { writeCount: 1 });
+            }
+
             // Navigate to the newly created document
             navigate(`/document/${newDocRef.id}`);
-            c?.setIsOpenMenu(false)
+            c?.setIsOpenMenu(false);
         } catch (error) {
             console.error("Error creating new document:", error);
         }
@@ -76,15 +95,16 @@ const SideBar = () => {
                         + New Document
                     </button>
                 </div>
-                
+
                 {/* Make this section grow to push the theme button down */}
                 <div className="pt-5 flex flex-col gap-1 flex-grow overflow-y-auto">
                     {documents ? (
-                        documents.map((doc, index) => (
+                        // Sort documents by date in ascending order (oldest first)
+                        [...documents].sort((a, b) => a.date.toDate() - b.date.toDate()).map((doc) => (
                             <div
-                                key={index}
+                                key={doc.id} // Use document ID as key
                                 className="flex flex-row items-center gap-5 cursor-pointer hover:bg-DHeaderBG px-2 py-1 duration-150 transition"
-                                onClick={() => handleClick(index)} // Pass the index to handleClick
+                                onClick={() => handleClick(doc.id)} // Pass the document id to navigate
                             >
                                 <i className="fa-regular fa-file text-xl"></i>
                                 <div>
@@ -105,14 +125,13 @@ const SideBar = () => {
                     )}
                 </div>
             </div>
-    
+
             {/* Theme button placed at the bottom */}
             <div className="px-6 py-4 mt-auto justify-center flex">
                 <ChangeThemeButton />
             </div>
         </div>
     );
-    
 };
 
 export default SideBar;
