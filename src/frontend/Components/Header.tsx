@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { MainContext } from "../mainContext/MainContext";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Header = () => {
     const c = useContext(MainContext);
+    const {id}  = useParams();
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
     useEffect(() => {

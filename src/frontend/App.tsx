@@ -58,7 +58,6 @@ function App() {
                                 : "ml-0"
                         }`}
                     >
-                        <Header />
                         <Routes>
                             <Route path="" element={<Home />}/>
                             <Route path="/:id" element={<EditPage />} />
