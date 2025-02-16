@@ -21,21 +21,23 @@ const EditPage = () => {
                 try {
                     const docRef = doc(db, "documents", id);
                     const docSnap = await getDoc(docRef);
-
+    
                     if (docSnap.exists()) {
                         const fetchedData = docSnap.data();
-                        c?.setMarkdown(fetchedData.text || "");
+                        c?.setMarkdown(fetchedData.text || "");  // Load existing text
                     } else {
-                        console.log("No such document!");
+                        // If the document doesn't exist, set an empty markdown
+                        c?.setMarkdown("");
                     }
                 } catch (e) {
                     console.error("Error getting document: ", e);
                 }
             };
-
+    
             fetchDocument();
         }
     }, [id]);
+    
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -65,61 +67,60 @@ const EditPage = () => {
         }
     };
 
-    // Save function that adds markdown content to Firestore
-    // const handleSave = async () => {
-    //     try {
-    //         // Saving the current markdown content to Firestore
-    //         await addDoc(collection(db, "documents"), {
-    //             text: markdown,
-    //             timestamp: new Date(),
-    //         });
-    //         console.log("Document successfully saved!");
-    //     } catch (e) {
-    //         console.error("Error adding document: ", e);
-    //     }
-    // };
-
     return (
         <>
             <Header />
             <div className="flex flex-col h-[94%] overflow-hidden flex-grow">
-            <PanelGroup direction={isMobile ? "vertical" : "horizontal"} className="flex-1">
-    {!c?.fullView && (
-        <Panel defaultSize={50} minSize={30} className="flex flex-col">
-            <div className="flex items-center px-5 h-[40px] text-gray-400 tracking-[0.1rem] bg-DContainerBG">
-                <p>MARKDOWN</p>
-            </div>
-            <textarea
-                className="w-full flex-1 bg-DBG border-none p-3 px-8 text-[16px] focus:outline-none text-colour-gray tracking-[1px]"
-                value={c?.markdown}
-                onChange={handleMarkdownChange}
-            ></textarea>
-        </Panel>
-    )}
+                <PanelGroup
+                    direction={isMobile ? "vertical" : "horizontal"}
+                    className="flex-1"
+                >
+                    {!c?.fullView && (
+                        <Panel
+                            defaultSize={50}
+                            minSize={30}
+                            className="flex flex-col"
+                        >
+                            <div className="flex items-center px-5 h-[40px] tracking-[0.1rem] bg-WContainerBG dark:bg-DContainerBG">
+                                <p className="text-black dark:text-gray-400">MARKDOWN</p>
+                            </div>
+                            <textarea
+                                className="w-full flex-1 bg-WBG dark:bg-DBG border-none p-3 px-8 text-[16px] focus:outline-none text-black dark:text-colour-gray tracking-[1px]"
+                                value={c?.markdown}
+                                onChange={handleMarkdownChange}
+                            ></textarea>
+                        </Panel>
+                    )}
 
-    {/* Resize Handle inside the first panel for alignment */}
-    <PanelResizeHandle className="relative flex items-center justify-center bg-DHeaderBG hover:bg-gray-500 transition-all duration-300 ease-in-out h-2 md:h-full md:w-1">
-    </PanelResizeHandle>
+                    {/* Resize Handle inside the first panel for alignment */}
+                    <PanelResizeHandle className="relative flex items-center justify-center bg-black dark:bg-DHeaderBG hover:bg-gray-500 transition-all duration-300 ease-in-out h-2 md:h-full md:w-1"></PanelResizeHandle>
 
-    {/* Preview Panel */}
-    <Panel defaultSize={50} minSize={50} className="flex flex-col">
-        <div className="flex justify-between items-center px-5 h-[40px] text-gray-400 tracking-[0.1rem] bg-DContainerBG">
-            <p>PREVIEW</p>
-            <i
-                className={`${
-                    c?.fullView ? "fa-regular fa-eye-slash" : "fa-regular fa-eye"
-                } cursor-pointer hover:text-myOrange duration-150 transition-colors pr-2 md:pr-0`}
-                onClick={() => c?.setFullView((prev) => !prev)}
-            ></i>
-        </div>
-        <div
-            ref={previewRef}
-            className="flex-1 bg-DBG overflow-y-auto px-5"
-            dangerouslySetInnerHTML={{ __html: marked(c?.markdown || "") }}
-        ></div>
-    </Panel>
-</PanelGroup>
-
+                    {/* Preview Panel */}
+                    <Panel
+                        defaultSize={50}
+                        minSize={50}
+                        className="flex flex-col"
+                    >
+                        <div className="flex justify-between items-center px-5 h-[40px] tracking-[0.1rem] bg-WContainerBG dark:bg-DContainerBG">
+                            <p className="text-black dark:text-gray-400">PREVIEW</p>
+                            <i
+                                className={`${
+                                    c?.fullView
+                                        ? "fa-regular fa-eye-slash"
+                                        : "fa-regular fa-eye"
+                                } cursor-pointer hover:text-myOrange duration-150 transition-colors pr-2 md:pr-0`}
+                                onClick={() => c?.setFullView((prev) => !prev)}
+                            ></i>
+                        </div>
+                        <div
+                            ref={previewRef}
+                            className="flex-1 bg-WBG dark:bg-DBG text-black dark:text-white overflow-y-auto px-5"
+                            dangerouslySetInnerHTML={{
+                                __html: marked(c?.markdown || ""),
+                            }}
+                        ></div>
+                    </Panel>
+                </PanelGroup>
             </div>
         </>
     );

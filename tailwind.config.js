@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: 'class',
   theme: {
     extend: {
       backgroundColor: {
@@ -10,6 +11,9 @@ module.exports = {
         'DBG' : '#151619',
         'BGButton' : "#E46643",
         'BGButtonHover' : '#F39765',
+
+        'WBG' : "#FFFFFF",
+        'WContainerBG' : "#F5F5F5"
       },
       fontFamily: {
         commissioner: ['Commissioner', 'sans-serif'],

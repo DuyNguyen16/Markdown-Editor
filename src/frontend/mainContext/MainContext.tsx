@@ -12,6 +12,8 @@ export interface mainContextType {
     data: any[],
     markdown: string, 
     setMarkdown: Dispatch<SetStateAction<string>>,
+    theme: string,
+    toggleTheme: () => void,
 }
 
 export const MainContext = React.createContext<mainContextType | undefined>(undefined)

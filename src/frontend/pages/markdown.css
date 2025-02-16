@@ -1,3 +1,20 @@
+h1, h2, h3, h4, h5, h6, p, ol li, ul li, code {
+    color: black; /* Default light mode color */
+}
+
+.dark h1, 
+.dark h2, 
+.dark h3, 
+.dark h4, 
+.dark h5, 
+.dark h6, 
+.dark p, 
+.dark ol li, 
+.dark ul li,
+.dark code {
+    color: #c1c4cb; /* Light gray text in dark mode */
+}
+
 h1 {
     font-size: 32px;
     font-weight: 700; /* Bold */
@@ -35,52 +52,30 @@ h6 {
     color: #E46643;
 }
 
-ol li {
-    list-style: decimal;
-    padding-left: 2px;
-    margin-left: 10px;
-    color: #c1c4cb;
-}
-
-ol {
+ol, ul {
     padding: 16px 0px;
     padding: 0px 0px 0px 40px;
 }
 
-ul li {
-    list-style:initial;
-    padding-left: 2px;
-    margin-left: 10px;
-    color: #c1c4cb;
-}
-
-ul {
-    margin: 16px 0;
-    padding: 0px 0px 0px 40px;
-}
-
-p {
-    color: #c1c4cb;
-    margin: 14px 0;
-    font-size: 14px;
-    letter-spacing: 0.3mm;
-}
-
 pre {
-    background-color: #2B2D31;
+    background-color: #F5F5F5;
     padding: 18px;
     border-radius: 5px;
     overflow-x: auto;
     margin: 15px 0px;
 }
 
+.dark pre {
+    background-color: #2B2D31 ;
+}
+
 code {
     font-weight: 700;
-    color: white;
+
 }
 
 blockquote {
-    background-color: #2B2D31;
+    background-color: #F5F5F5;
     padding: 15px;
     border-radius: 5px;
     overflow-x: auto;
@@ -88,8 +83,11 @@ blockquote {
     margin: 15px 0px;
 }
 
+.dark blockquote {
+    background-color: #2B2D31 ;
+}
+
 hr {
     margin-top: 32px;
     margin-bottom: 25px;
 }
-
