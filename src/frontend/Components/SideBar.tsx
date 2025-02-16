@@ -36,7 +36,7 @@ const SideBar = () => {
                     </button>
                 </div>
                 <div className="pt-5 flex flex-col gap-1">
-                    {documents?.map((doc, index) => (
+                    {documents ? documents?.map((doc, index) => (
                         <div
                             key={index}
                             className="flex flex-row items-center gap-5 cursor-pointer hover:bg-DHeaderBG px-2 py-1 duration-150 transition"
@@ -46,7 +46,7 @@ const SideBar = () => {
                             <div>
                                 <p className="m-0 text-gray-500 text-xs">
                                     {/* Assuming 'date' is a property in your document */}
-                                    {doc?.date || "No date available"}
+                                    {"No date available"}
                                 </p>
                                 <p className="m-0 text-white duration-150 transition-colors">
                                     {/* Assuming 'title' is a property in your document */}
@@ -54,7 +54,7 @@ const SideBar = () => {
                                 </p>
                             </div>
                         </div>
-                    ))}
+                    )) : <p></p>}
                 </div>
             </div>
         </div>

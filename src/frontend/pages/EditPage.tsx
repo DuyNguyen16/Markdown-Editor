@@ -11,7 +11,6 @@ import Header from "../Components/Header";
 const EditPage = () => {
     const c = useContext(MainContext);
     const { id } = useParams();
-    const [markdown, setMarkdown] = useState("");
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     const previewRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,7 +24,7 @@ const EditPage = () => {
 
                     if (docSnap.exists()) {
                         const fetchedData = docSnap.data();
-                        setMarkdown(fetchedData.text || "");
+                        c?.setMarkdown(fetchedData.text || "");
                     } else {
                         console.log("No such document!");
                     }
@@ -48,7 +47,7 @@ const EditPage = () => {
         e: React.ChangeEvent<HTMLTextAreaElement>
     ) => {
         const newMarkdown = e.target.value;
-        setMarkdown(newMarkdown);
+        c?.setMarkdown(newMarkdown);
 
         // Scroll the preview panel to the same position as the cursor in the editor
         if (previewRef.current) {
@@ -100,7 +99,7 @@ const EditPage = () => {
                             </div>
                             <textarea
                                 className="w-full flex-1 bg-DBG border-none p-3 px-8 text-[16px] focus:outline-none text-colour-gray tracking-[1px]"
-                                value={markdown}
+                                value={c?.markdown}
                                 onChange={handleMarkdownChange}
                             ></textarea>
                             {/* Save Button */}
@@ -141,9 +140,8 @@ const EditPage = () => {
                         <div
                             ref={previewRef}
                             className="flex-1 bg-DBG overflow-y-auto px-5"
-                            dangerouslySetInnerHTML={{
-                                __html: marked(markdown),
-                            }}
+                            dangerouslySetInnerHTML={{ __html: marked(c?.markdown || "") }}
+
                         ></div>
                     </Panel>
                 </PanelGroup>

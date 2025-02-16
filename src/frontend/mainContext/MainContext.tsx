@@ -10,6 +10,8 @@ export interface mainContextType {
     currentDoc: number, 
     setCurrentDoc: Dispatch<SetStateAction<number>>,
     data: any[],
+    markdown: string, 
+    setMarkdown: Dispatch<SetStateAction<string>>,
 }
 
 export const MainContext = React.createContext<mainContextType | undefined>(undefined)
